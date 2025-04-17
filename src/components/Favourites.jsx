@@ -6,9 +6,10 @@ import {
   ListGroupItem,
   Button,
 } from 'react-bootstrap'
-import { StarFill } from 'react-bootstrap-icons'
+import { HeartFill } from 'react-bootstrap-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { addToFavourite, removeFromFavourite } from '../redux/actions'
 
 const Favourites = () => {
   const favourites = useSelector((state) => state.favourite.list)
@@ -27,15 +28,14 @@ const Favourites = () => {
           <ListGroup>
             {favourites.map((fav, i) => (
               <ListGroupItem key={i}>
-                <StarFill
-                  className="mr-2"
-                  onClick={() =>
-                    dispatch({
-                      type: 'REMOVE_FROM_FAVOURITE',
-                      payload: fav,
-                    })
-                  }
-                />
+                 <HeartFill
+                    color="red"
+                    size={16}
+                    className="mr-2 my-auto me-3"
+                    title="Remove from favourites"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => dispatch(removeFromFavourite(fav))}
+                  />
                 <Link to={'/' + fav}>{fav}</Link>
               </ListGroupItem>
             ))}
